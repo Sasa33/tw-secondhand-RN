@@ -23,6 +23,28 @@ export interface UserForLogin {
     password: string
 }
 
+export interface Person {
+    username: string
+    objectId: string
+}
+
+export interface Product {
+    name: string
+    price: string
+    img: string
+    description: string
+    owner: Person
+    buyer?: Person
+    objectId: string
+}
+
+export interface ProductForCreate {
+    name: string
+    price: string
+    img: string
+    description: string
+}
+
 // ACTION CREATORS
 
 // ACTIONS
