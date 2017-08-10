@@ -14,13 +14,17 @@ export interface User {
 }
 
 export interface UserProfile {
-    id: string
-    email: string
+    username: string
+    sessionToken: string
 }
 
 export interface UserForLogin {
     username: string
     password: string
+}
+
+export interface MetaForLogin {
+    referer: string
 }
 
 export interface Person {
@@ -57,13 +61,26 @@ export interface UserLoginAction extends GeneralAction {
 export interface UserAction extends GeneralAction {
     payload?: User | UserForLogin | UserProfile
 }
+export interface UserSucAction extends GeneralAction {
+    payload?: UserProfile
+}
+export interface QuerySucAction extends GeneralAction {
+    payload?: Array<Product>
+}
 
 // STATES
 export type AppState = App
 export type UserState = User
+export type ProductsState = {
+    available: Array<Product>
+    owned: Array<Product>
+    bought: Array<Product>
+    imageUrl: Array<Product>
+}
 
 export interface RootState {
     user?: UserState
     app?: AppState
     nav?: {}
+    products?: ProductsState
 }

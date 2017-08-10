@@ -6,7 +6,7 @@ import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 
 import * as D from '../../definitions'
-import { userLogin } from '../../modules/user/actions'
+import { userLogin, userLogout } from '../../modules/user/actions'
 
 export type ProfileProps<S> = DispatchProp<S> & {
   user: D.User
@@ -28,10 +28,15 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
         <Button
           title="Login"
           onPress={() => this.props.dispatch(userLogin({
-              username: 'admin',
-              password: 'admin',
+              username: 'zenglei',
+              password: '123',
             }))
           }
+        />
+        <Button
+            title="Logout"
+            onPress={() => this.props.dispatch(userLogout())
+            }
         />
         <Text>Profile .... {this.props.user.name ? `This is ${this.props.user.name}` : null} !</Text>
         <Button
