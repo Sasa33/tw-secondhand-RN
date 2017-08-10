@@ -51,6 +51,7 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
             this.props.dispatch(NavigationActions.back())
           }}
         />
+        <Text>{this.props.app.logined ? 'logined' : 'not login'}</Text>
       </View>
     )
   }
@@ -59,5 +60,6 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
 export default connect(
   state => ({
     user: state.user,
+    app: state.app,
   })
 )(ProfileScreen)
