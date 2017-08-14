@@ -38,7 +38,7 @@ const loginEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGIN, login, (store, 
     let nextAction = NavigationActions.navigate({ routeName: 'homeStack' })
 
     if (action && action.meta && action.meta.referer) {
-      const referer = action.meta.referer
+      const { referer } = action.meta
 
       if (referer === 'release') {
         nextAction = NavigationActions.navigate({ routeName: 'release' })

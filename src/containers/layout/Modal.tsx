@@ -7,6 +7,7 @@ import * as D from '../../definitions'
 const styles = StyleSheet.create({
   container: {
     marginTop: 27,
+    flex: 1,
   },
   header: {
     height: 40,
@@ -20,10 +21,10 @@ const styles = StyleSheet.create({
     width: 40,
     height: 10,
     backgroundColor: 'white',
-    marginRight: 100,
+    marginRight: 80,
   },
   title: {
-    width: 40,
+    width: 80,
     height: 40,
     fontSize: 18,
     textAlign: 'center'

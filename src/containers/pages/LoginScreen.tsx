@@ -79,7 +79,7 @@ class LoginScreen extends React.Component<LoginProps<object>> {
                 password: this.state.password,
               },
               {
-                referer: referer
+                referer,
               }))
             }
           />
