@@ -6,18 +6,26 @@ import * as D from '../../definitions'
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
+    marginTop: 27,
+  },
+  header: {
+    height: 40,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   button: {
-    position: 'absolute',
-    left: 10,
-    top: 0,
-    width: 20,
-    height: 40,
+    position: 'relative',
+    top: -20,
+    width: 40,
+    height: 10,
     backgroundColor: 'white',
+    marginRight: 100,
   },
   title: {
-    fontSize: 22,
+    width: 40,
+    height: 40,
+    fontSize: 18,
     textAlign: 'center'
   }
 })
@@ -39,12 +47,14 @@ class MyModal extends React.Component<ModalProps<object>> {
 
     return (
         <View style={styles.container}>
-          <Button
-              title="X"
-              style={styles.button}
-              onPress={() => this.onClose(backTo)}
-          />
-          <Text style={styles.title}>{title}</Text>
+          <View style={styles.header}>
+            <Button
+                title="X"
+                style={styles.button}
+                onPress={() => this.onClose(backTo)}
+            />
+            <Text style={styles.title}>{title}</Text>
+          </View>
           {children}
         </View>
     )

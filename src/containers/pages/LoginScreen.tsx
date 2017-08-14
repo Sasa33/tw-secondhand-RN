@@ -1,33 +1,42 @@
 import * as React from 'react'
-import { StyleSheet, Text, View, TouchableHighlight, Modal, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import { Button } from 'react-native-elements'
+import { StyleSheet, View, Image, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { Button } from '../../components/'
 import { connect, DispatchProp } from 'react-redux'
 import { ModalWrapper } from '../layout/Modal'
 import { userLogin } from '../../modules/user/actions'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    marginTop: 20,
+    display: 'flex',
+    flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
     alignContent: 'space-between',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
   textInput: {
-    marginVertical: 10,
-    width: 200,
+    marginVertical: 20,
+    width: 250,
     borderBottomColor: 'grey',
     borderBottomWidth: 1,
+  },
+  img: {
+    width: 100,
+    height: 100,
+    marginVertical: 30,
   }
 })
 
 const buttonStyle = {
-  marginVertical: 10,
-  width: 160,
+  marginVertical: 30,
+  width: 250,
 }
 
 export type LoginProps<S> = DispatchProp<S> & {
 }
+
+const avatar = require('../../assets/profile.png')
 
 class LoginScreen extends React.Component<LoginProps<object>> {
   state = {
@@ -42,8 +51,10 @@ class LoginScreen extends React.Component<LoginProps<object>> {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
+          <Image source={avatar} style={styles.img} />
           <TextInput
-            style={styles.textInput} value={username}
+            style={styles.textInput}
+            value={username}
             keyboardType="default"
             autoCorrect={false}
             autoCapitalize="none"
@@ -51,7 +62,8 @@ class LoginScreen extends React.Component<LoginProps<object>> {
             onChangeText={text => {this.setState({ username: text })}}
           />
           <TextInput
-            style={styles.textInput} value={password}
+            style={styles.textInput}
+            value={password}
             keyboardType="default"
             autoCorrect={false}
             secureTextEntry={true}
@@ -73,6 +85,7 @@ class LoginScreen extends React.Component<LoginProps<object>> {
           />
           <Button
             title="Register"
+            buttonStyle={buttonStyle}
             onPress={() => {
               this.props.navigation.navigate('register')
             }}
