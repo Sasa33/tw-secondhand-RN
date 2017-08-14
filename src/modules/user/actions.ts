@@ -22,8 +22,8 @@ export const USER_LOGOUT_FAIL = 'USER_LOGOUT_FAIL'
 
 export const userRegister = (user: D.UserForLogin): D.UserAction => ({ type: USER_REGISTER, payload: user })
 
-export const userLogin = (user: D.UserForLogin, meta: D.MetaForLogin): D.UserAction => ({
-  type: USER_LOGIN, payload: user, meta
+export const userLogin = (user: D.UserForLogin): D.UserAction => ({
+  type: USER_LOGIN, payload: user
 })
 
 export const userLogout = (): D.UserAction => ({ type: USER_LOGOUT })
