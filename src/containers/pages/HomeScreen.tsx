@@ -16,7 +16,7 @@ class HomeScreen extends React.Component<HomePageProps<object>> {
   }
 
   render() {
-    const { dispatch, products } = this.props
+    const { products } = this.props
 
     return (
       <List

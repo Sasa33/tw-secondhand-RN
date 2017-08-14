@@ -7,7 +7,7 @@ const buttonStyle = {
 }
 
 const textStyle = {
-  color: '#333'
+  color: '#333',
 }
 
 const ThemedButton = (props: ButtonProperties) => (
