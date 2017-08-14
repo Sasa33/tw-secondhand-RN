@@ -11,7 +11,9 @@ const textStyle = {
 }
 
 const ThemedButton = (props: ButtonProperties) => (
-  <Button {...props} buttonStyle={buttonStyle} textStyle={textStyle} />
+  <Button {...props}
+    buttonStyle={{ ...(props.buttonStyle || {}), ...buttonStyle }}
+    textStyle={{ ...(props.textStyle || {}), ...textStyle }} />
 )
 
 export default ThemedButton
