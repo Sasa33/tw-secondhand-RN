@@ -2,79 +2,171 @@ import * as React from 'react'
 import {
   NavigationActions,
   TabNavigator,
+  StackNavigator,
 } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import HomeScreen from '../containers/pages/HomeScreen'
-import OthersScreen from '../containers/pages/OthersScreen'
+import BuyScreen from '../containers/pages/BuyScreen'
+import ReleaseScreen from '../containers/pages/ReleaseScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
+import OwnedScreen from '../containers/pages/OwnedScreen'
+import BoughtScreen from '../containers/pages/BoughtScreen'
+import LoginScreen from '../containers/pages/LoginScreen'
+import RegisterScreen from '../containers/pages/RegisterScreen'
 
-const Route = TabNavigator({
-  home: {
-    screen: HomeScreen,
-    navigationOptions: {
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-home' : 'ios-home-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
-      ),
+const HomeStack = StackNavigator(
+    {
+      home: {
+        screen: HomeScreen,
+        navigationOptions: {
+          title: '精选',
+        }
+      },
+      buy: {
+        screen: BuyScreen,
+        navigationOptions: {
+          title: '商品详情',
+          header: null,
+          tabBarVisible: false,
+        },
+      },
+    },
+    {
+      mode:       'modal'
+    }
+)
+
+const ProfileStack = StackNavigator(
+  {
+    profile: {
+      screen: ProfileScreen,
+      navigationOptions: {
+        title: '个人信息',
+      }
+    },
+    bought: {
+      screen: BoughtScreen,
+      navigationOptions: {
+        title: '已买宝贝',
+      }
+    },
+    owned: {
+      screen: OwnedScreen,
+      navigationOptions: {
+        title: '出售宝贝',
+      }
+    },
+  }
+)
+
+const MainTabNavigator = TabNavigator(
+  {
+    homeStack: {
+      screen: HomeStack,
+      navigationOptions: {
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Ionicons
+            name={focused ? 'ios-home-outline' : 'ios-home-outline'}
+            size={30}
+            style={{ color: tintColor }}
+          />
+        ),
+      },
+    },
+    release: {
+      screen: ReleaseScreen,
+      navigationOptions: {
+        tabBarLabel: 'Release',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Ionicons
+            name={focused ? 'ios-add-circle-outline' : 'ios-add-circle-outline'}
+            size={30}
+            style={{ color: tintColor }}
+          />
+        ),
+        header: null,
+        // tabBarVisible: false,
+      },
+    },
+    profileStack: {
+      screen: ProfileStack,
+      navigationOptions: {
+        tabBarLabel: 'Profile',
+        tabBarIcon: ({ tintColor, focused }) => (
+            <Ionicons
+                name={focused ? 'ios-person-outline' : 'ios-person-outline'}
+                size={30}
+                style={{ color: tintColor }}
+            />
+        ),
+      },
     },
   },
-  others: {
-    screen: OthersScreen,
-    navigationOptions: {
-      tabBarLabel: 'Others',
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-add' : 'ios-add-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
-      ),
+  {
+    initialRouteName: 'homeStack',
+    tabBarPosition: 'bottom',
+    tabBarOptions: {
+      inactiveTintColor: '#333',
+      inactiveBackgroundColor: 'gold',
+      activeTintColor: '#333',
     },
-  },
-  profile: {
-    screen: ProfileScreen,
-    navigationOptions: {
-      tabBarLabel: 'Profile',
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-person' : 'ios-person-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
-      ),
+    animationEnabled: false,
+    swipeEnabled: false,
+    tabBarOptions : {
+      style: {
+        backgroundColor: '#FAE05E',
+      },
+      showLabel: false,
+    }
+  }
+)
+
+const LoginRegisterStackNavigator = StackNavigator(
+  {
+    login: {
+      screen: LoginScreen,
+      navigationOptions: {
+        title: '登录',
+      }
     },
+    register: {
+      screen: RegisterScreen,
+      navigationOptions: {
+        title: '注册',
+      }
+    }
   },
-},
-{
-  initialRouteName: 'home',
-  tabBarPosition: 'bottom',
-  tabBarOptions: {
-    inactiveTintColor: '#333',
-    inactiveBackgroundColor: 'gold',
-    activeTintColor: '#333',
+  {
+    headerMode: 'none',
+    mode:       'modal',
+  }
+)
+
+const RootNavigator = StackNavigator(
+  {
+    MainTabNavigator:          { screen: MainTabNavigator            },
+    LoginStackNavigator: { screen: LoginRegisterStackNavigator }
   },
-  animationEnabled: true,
-  swipeEnabled: true,
-})
+  {
+    headerMode: 'none',
+    mode:       'modal',
+  })
 
 const initialRouterAction = NavigationActions.init()
 
-const initialState = Route.router.getStateForAction(initialRouterAction, null)
+const initialState = RootNavigator.router.getStateForAction(initialRouterAction, null)
 
 export const reducer = (state = initialState, action) => {
   let nextState
   // Simply return the original `state` if `nextState` is null or undefined.
   switch (action.type) {
-    
+
     default:
-      nextState = Route.router.getStateForAction(action, state)
+      nextState = RootNavigator.router.getStateForAction(action, state)
   }
   return nextState || state
 }
 
-export default Route
+export default RootNavigator

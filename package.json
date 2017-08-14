@@ -33,6 +33,7 @@
     "@types/react": "^15.6.1",
     "@types/react-native": "^0.44.15",
     "@types/react-native-elements": "^0.13.2",
+    "@types/react-native-vector-icons": "^4.2.1",
     "@types/react-navigation": "^1.0.16",
     "@types/react-redux": "^4.4.47",
     "@types/react-test-renderer": "^15.5.1",

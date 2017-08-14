@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
-// import { NavigationActions } from 'react-navigation'
 import * as D from '../../definitions'
 import { getProducts } from '../../modules/product/actions'
 
@@ -16,14 +15,16 @@ class HomeScreen extends React.Component<HomePageProps<object>> {
   }
 
   render() {
-    const { products } = this.props
+    const { dispatch, products, navigation } = this.props
 
     return (
       <List
           list={products}
           handleClick={(listItem) => {
-            console.log('item clicked...')
             // go to buy page
+            // dispatch(NavigationActions.navigate({ routeName: 'buy', params: { product: listItem } }))
+            // or
+            navigation.navigate('buy', { product: listItem })
           }}
       />
     )
