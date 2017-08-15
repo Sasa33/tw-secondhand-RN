@@ -3,17 +3,16 @@ import { StyleSheet, View, Image, TextInput, TouchableWithoutFeedback, Keyboard 
 import { Button } from '../../components/'
 import { connect, DispatchProp } from 'react-redux'
 import { ModalWrapper } from '../layout/Modal'
-import { LoaderWrapper } from '../layout/Loader'
 import { userRegister } from '../../modules/user/actions'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: 10,
+    marginTop: 20,
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
+    alignContent: 'space-between',
     justifyContent: 'space-around',
   },
   textInput: {
@@ -83,12 +82,10 @@ class RegisterScreen extends React.Component<RegisterProps<object>> {
           <Button
             title="Register"
             buttonStyle={buttonStyle}
-            onPress={() => {
-              this.props.dispatch(userRegister(
-                  {
-                    username, password,
-                  }))
-              }
+            onPress={() => this.props.dispatch(userRegister(
+              {
+                username, password,
+              }))
             }
           />
         </View>
@@ -97,9 +94,7 @@ class RegisterScreen extends React.Component<RegisterProps<object>> {
   }
 }
 
-export default LoaderWrapper(
-  ModalWrapper(connect()(RegisterScreen), {
-    backTo: 'loginStack',
-    title: '注册'
-  })
-)
+export default ModalWrapper(connect()(RegisterScreen), {
+  backTo: 'loginStack',
+  title: '注册'
+})
