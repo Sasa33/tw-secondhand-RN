@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect, DispatchProp } from 'react-redux'
-import { StyleSheet, View, Text, Modal, TouchableHighlight } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import { Button } from 'react-native-elements'
 import * as D from '../../definitions'
 
@@ -10,32 +10,30 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: 40,
-    display: 'flex',
+    paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
   },
   button: {
-    position: 'relative',
-    top: -20,
-    width: 40,
-    height: 10,
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     marginRight: 80,
+    padding: 0,
+  },
+  buttonText: {
+    color: '#333',
+    fontSize: 24,
   },
   title: {
     width: 80,
-    height: 40,
     fontSize: 18,
-    textAlign: 'center'
+    textAlign: 'center',
   }
 })
 
 export type ModalProps<S> = DispatchProp<S> & {
-
 }
 
-class MyModal extends React.Component<ModalProps<object>> {
+class Modal extends React.Component<ModalProps<object>> {
   onClose(target: string) {
     this.props.navigation.goBack(null)
     if (target && target.startsWith('home')) {
@@ -50,8 +48,9 @@ class MyModal extends React.Component<ModalProps<object>> {
         <View style={styles.container}>
           <View style={styles.header}>
             <Button
-                title="X"
-                style={styles.button}
+                title="&times;"
+                buttonStyle={styles.button}
+                textStyle={styles.buttonText}
                 onPress={() => this.onClose(backTo)}
             />
             <Text style={styles.title}>{title}</Text>
@@ -67,7 +66,7 @@ const ConnectedModal = connect(
       user: state.user,
       nav: state.nav,
     })
-)(MyModal)
+)(Modal)
 
 export const ModalWrapper = (InnerContent, config = null) => props => {
   return (

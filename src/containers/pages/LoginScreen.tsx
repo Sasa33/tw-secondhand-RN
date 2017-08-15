@@ -71,12 +71,11 @@ class LoginScreen extends React.Component<LoginProps<object>> {
             placeholder="密码"
           />
           <Button
-            title="Login"
+            title="登录"
             buttonStyle={buttonStyle}
             onPress={() => this.props.dispatch(userLogin(
               {
-                username: this.state.username,
-                password: this.state.password,
+                username, password,
               },
               {
                 referer,
@@ -84,7 +83,7 @@ class LoginScreen extends React.Component<LoginProps<object>> {
             }
           />
           <Button
-            title="Register"
+            title="注册"
             buttonStyle={buttonStyle}
             onPress={() => {
               this.props.navigation.navigate('register')
