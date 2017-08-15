@@ -13,13 +13,13 @@ const userReducer: Redux.Reducer<D.UserState> = (state: D.UserState, action: D.U
         case USER_LOGIN_SUC:
             return {
                 ...state,
-                name: action.payload.username
+                name: action.payload.username,
             }
         case USER_LOGOUT_SUC:
         case USER_LOGOUT_FAIL:
             return {
                 ...state,
-                name: ''
+                name: '',
             }
         default:
     }

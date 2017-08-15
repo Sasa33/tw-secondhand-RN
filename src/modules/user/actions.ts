@@ -29,39 +29,36 @@ export const userLogin = (user: D.UserForLogin, meta: D.MetaForLogin): D.UserAct
 export const userLogout = (): D.UserAction => ({ type: USER_LOGOUT })
 
 const registerEpic: Epic<D.GeneralAction> = epicCreator(USER_REGISTER, register, (store) => {
-  // store.dispatch(modalAction.dismiss())
+  store.dispatch(NavigationActions.navigate({ routeName: 'login' }))
 })
 
 const loginEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGIN, login, (store, response, action) => {
   userStorage.setUser(response).then(() => {
-    // let nextAction: {} = push('/profile')
-
-    // store.dispatch(dismiss())
+    store.dispatch(NavigationActions.back(null))
+    let nextAction = NavigationActions.navigate({ routeName: 'homeStack' })
 
     if (action && action.meta && action.meta.referer) {
-      const referer = action.meta.referer
+      const { referer } = action.meta
 
-      if (referer.startsWith('/')) {
-        // nextAction = push(referer)
-      } else if (referer.startsWith('#')) {
-        // nextAction = show({
-        //   anchor: referer
-        // })
+      if (referer === 'release') {
+        nextAction = NavigationActions.navigate({ routeName: 'release' })
+      } else if (referer === 'profileStack') {
+        nextAction = NavigationActions.navigate({ routeName: 'profileStack' })
       }
     }
-    // store.dispatch(nextAction)
+    store.dispatch(nextAction)
   })
 })
 
-const logoutCallback = (store) => {
+const logoutSucCallback = (store) => {
   userStorage.removeUser().then(() => {
+    store.dispatch(NavigationActions.navigate({ routeName: 'homeStack' }))
     store.dispatch(clearProducts())
-    store.dispatch(NavigationActions.navigate({ routeName: 'home' }))
     store.dispatch(getProducts())
   })
 }
 
-const logoutEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGOUT, logout, logoutCallback, logoutCallback)
+const logoutEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGOUT, logout, logoutSucCallback)
 
 export const epics: Array<Epic<D.GeneralAction>> = [
   registerEpic,
