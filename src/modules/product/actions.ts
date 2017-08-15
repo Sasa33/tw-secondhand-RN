@@ -35,8 +35,9 @@ export const createProduct =
 export const clearProducts = (): D.UserAction => ({ type: CLEAR_PRODUCTS })
 
 const sucCallback = (store) => {
+  store.dispatch(NavigationActions.back(null))
+  // store.dispatch(NavigationActions.navigate({ routeName: 'homeStack' }))
   store.dispatch(getProducts())
-  store.dispatch(NavigationActions.navigate({ routeName: 'homeStack' }))
 }
 
 const queryAvailableEpic: Epic<D.GeneralAction> = epicCreator(GET_PRODUCTS, queryAvailable)

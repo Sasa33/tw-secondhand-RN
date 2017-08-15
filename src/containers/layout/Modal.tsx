@@ -1,36 +1,34 @@
 import React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { StyleSheet, View, Text } from 'react-native'
-import { Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/Ionicons'
 import * as D from '../../definitions'
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 27,
     flex: 1,
   },
   header: {
-    paddingHorizontal: 20,
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 25,
+    paddingHorizontal: 20,
   },
-  button: {
-    backgroundColor: 'transparent',
-    marginRight: 80,
-    padding: 0,
-  },
-  buttonText: {
-    color: '#333',
-    fontSize: 24,
+  close: {
+    marginRight: -12,
+    zIndex: 1,
   },
   title: {
-    width: 80,
+    flex: 1,
     fontSize: 18,
     textAlign: 'center',
+    fontWeight: 'bold',
   }
 })
 
 export type ModalProps<S> = DispatchProp<S> & {
+  nav: object
 }
 
 class Modal extends React.Component<ModalProps<object>> {
@@ -47,12 +45,7 @@ class Modal extends React.Component<ModalProps<object>> {
     return (
         <View style={styles.container}>
           <View style={styles.header}>
-            <Button
-                title="&times;"
-                buttonStyle={styles.button}
-                textStyle={styles.buttonText}
-                onPress={() => this.onClose(backTo)}
-            />
+            <Icon name="md-close" size={24} style={styles.close} onPress={() => this.onClose(backTo)} />
             <Text style={styles.title}>{title}</Text>
           </View>
           {children}
@@ -63,7 +56,6 @@ class Modal extends React.Component<ModalProps<object>> {
 
 const ConnectedModal = connect(
     (state: D.RootState) => ({
-      user: state.user,
       nav: state.nav,
     })
 )(Modal)

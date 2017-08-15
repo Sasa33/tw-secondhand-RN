@@ -3,17 +3,18 @@ import { StyleSheet, View, Image, TextInput, TouchableWithoutFeedback, Keyboard 
 import { Button } from '../../components/'
 import { connect, DispatchProp } from 'react-redux'
 import { ModalWrapper } from '../layout/Modal'
+import { LoaderWrapper } from '../layout/Loader'
 import { userLogin } from '../../modules/user/actions'
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    flex: 1,
+    marginTop: 10,
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
     alignContent: 'space-between',
-    justifyContent: 'space-around',
   },
   textInput: {
     marginVertical: 20,
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
   img: {
     width: 100,
     height: 100,
-    marginVertical: 30,
+    marginVertical: 20,
   }
 })
 
@@ -95,7 +96,8 @@ class LoginScreen extends React.Component<LoginProps<object>> {
   }
 }
 
-export default ModalWrapper(connect()(LoginScreen), {
-  backTo: 'homeStack',
-  title: '登录'
-})
+export default LoaderWrapper(
+  ModalWrapper(connect()(LoginScreen), {
+    backTo: 'homeStack',
+    title: '登录'
+  }))

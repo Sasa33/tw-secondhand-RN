@@ -36,30 +36,30 @@ const styles = StyleSheet.create({
     fontSize: 22
   },
   icon: {
-    width: 20,
-    height: 20,
+    width: 18,
+    height: 18,
+    marginRight: 10,
   },
   owner: {
     flexDirection: 'row',
   },
   buyer: {
+    position: 'relative',
+    top: -10,
     flexDirection: 'row',
-  },
-  message: {
-
   },
   mask: {
     position: 'absolute',
     left: 0,
     top:  0,
-    width: '100%',
+    width: 400,
     height: 150,
     backgroundColor: '#FCFAFA',
     opacity: 0.8,
   }
 })
 
-// const icon = require('./img/usr.png')
+const userIcon = require('../../../assets/userIcon.png')
 
 export default (props: ListItemProps) => {
   const { listItem, isSpecial, handleClick } = props
@@ -68,12 +68,12 @@ export default (props: ListItemProps) => {
   const content = isBought ? (
     <View>
       <View style={styles.buyer}>
-        {/*<Image soure={icon} style={styles.icon}/>*/}
+        <Image source={userIcon} style={styles.icon}/>
         <Text>{buyer.username}</Text>
       </View>
       <Text>交易关闭</Text>
     </View>
-  ) : <Text style={styles.message}>出售中</Text>
+  ) : <Text>出售中</Text>
 
   return (
     <TouchableHighlight
@@ -93,13 +93,13 @@ export default (props: ListItemProps) => {
           {
             !isSpecial ? (
                 <View style={styles.owner}>
-                  {/*<Image soure={icon} style={styles.icon}/>*/}
+                  <Image source={userIcon} style={styles.icon}/>
                   <Text>{owner.username}</Text>
                 </View>
             ) : (content)
           }
         </View>
-        {isSpecial && isBought ? <View style={styles.mask}><Text>' '</Text></View> : null}
+        {isSpecial && isBought ? <View style={styles.mask}><Text/></View> : null}
       </View>
     </TouchableHighlight>
   )
