@@ -87,7 +87,7 @@ const MainTabNavigator = TabNavigator(
           />
         ),
         header: null,
-        // tabBarVisible: false,
+        tabBarVisible: false,
       },
     },
     profileStack: {
@@ -114,7 +114,7 @@ const MainTabNavigator = TabNavigator(
       activeBackgroundColor: 'white',
       showLabel: false,
     },
-    animationEnabled: false,
+    animationEnabled: true,
     swipeEnabled: false,
   }
 )
