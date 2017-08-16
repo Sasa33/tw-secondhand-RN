@@ -15,9 +15,10 @@ class CheckLogin extends React.Component<CheckLoginProps> {
     const { logined, nav } = nextProps
     const index = nav.index
     const innerIndex = nav.routes[index].index
+    const currentRouterName = nav.routes[0].routes[innerIndex].routeName
 
     const popUpLogin = !logined && nav.routes[0].index !== originalNav.routes[0].index
-        && nav.routes[0].routes[innerIndex].routeName === referer
+        && currentRouterName === referer
     if (popUpLogin) {
       navigation.navigate('LoginStackNavigator', { referer: referer })
     }
