@@ -6,6 +6,7 @@ import * as D from '../../definitions'
 import { ModalWrapper } from '../layout/Modal'
 import { buyProduct } from '../../modules/product/actions'
 import { LoaderWrapper } from '../layout/Loader'
+import { NavigationActions } from 'react-navigation'
 
 type BuyProps<S> = DispatchProp<S> & {
   user: D.UserState;
@@ -59,13 +60,11 @@ const userIcon = require('../../assets/userIcon.png')
 
 class BuyScreen extends React.Component<BuyProps<object>> {
   handleClick = (productId) => () => {
-    const { user, dispatch, navigation } = this.props
+    const { user, dispatch } = this.props
     if (user.name) {
       dispatch(buyProduct(productId))
     } else {
-      navigation.navigate('LoginStackNavigator', {
-        referer: 'buy',
-      })
+      dispatch(NavigationActions.navigate({ routeName: 'LoginStackNavigator', params: { referer: 'buy' } }))
     }
   }
 

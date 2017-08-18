@@ -5,6 +5,7 @@ import { connect, DispatchProp } from 'react-redux'
 import { ModalWrapper } from '../layout/Modal'
 import { LoaderWrapper } from '../layout/Loader'
 import { userLogin } from '../../modules/user/actions'
+import { NavigationActions } from 'react-navigation'
 
 const styles = StyleSheet.create({
   container: {
@@ -87,7 +88,7 @@ class LoginScreen extends React.Component<LoginProps<object>> {
             title="注册"
             buttonStyle={buttonStyle}
             onPress={() => {
-              this.props.navigation.navigate('register')
+              this.props.dispatch(NavigationActions.navigate({ routeName: 'register' }))
             }}
           />
         </View>

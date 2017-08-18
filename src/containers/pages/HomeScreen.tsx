@@ -5,6 +5,7 @@ import { getProducts } from '../../modules/product/actions'
 import { LoaderWrapper } from '../layout/Loader'
 
 import { List } from '../../components/'
+import { NavigationActions } from 'react-navigation'
 
 type HomePageProps<S> = DispatchProp<S> & {
     products: Array<D.Product>
@@ -35,10 +36,9 @@ class HomeScreen extends React.Component<HomePageProps<object>> {
       <List
           list={products}
           handleClick={(listItem) => {
-            // go to buy page
-            // dispatch(NavigationActions.navigate({ routeName: 'buy', params: { product: listItem } }))
+            dispatch(NavigationActions.navigate({ routeName: 'buy', params: { product: listItem } }))
             // or
-            navigation.navigate('buy', { product: listItem })
+            // navigation.navigate('buy', { product: listItem })
           }}
       />
     )

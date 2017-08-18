@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as Redux from 'redux'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 
 interface CheckLoginProps {
   children?: React.Component
@@ -11,7 +12,7 @@ interface CheckLoginProps {
 
 class CheckLogin extends React.Component<CheckLoginProps> {
   componentWillReceiveProps(nextProps) {
-    const { referer, nav: originalNav, navigation } = this.props
+    const { referer, nav: originalNav, dispatch } = this.props
     const { logined, nav } = nextProps
     const index = nav.index
     const innerIndex = nav.routes[index].index
@@ -20,7 +21,10 @@ class CheckLogin extends React.Component<CheckLoginProps> {
     const popUpLogin = !logined && nav.routes[0].index !== originalNav.routes[0].index
         && currentRouterName === referer
     if (popUpLogin) {
-      navigation.navigate('LoginStackNavigator', { referer: referer })
+      dispatch(NavigationActions.navigate({ routeName: 'LoginStackNavigator', params: {
+        referer: referer
+      } }))
+      // navigation.navigate('LoginStackNavigator', { referer: referer })
     }
   }
 
