@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, TextInput, TouchableWithoutFeedback, Keyboard 
 import { Button } from '../../components/'
 import { connect, DispatchProp } from 'react-redux'
 import { ModalWrapper } from '../layout/Modal'
+import { userRegister } from '../../modules/user/actions'
 
 const styles = StyleSheet.create({
   container: {
@@ -81,9 +82,11 @@ class RegisterScreen extends React.Component<RegisterProps<object>> {
           <Button
             title="Register"
             buttonStyle={buttonStyle}
-            onPress={() => {
-              this.props.navigation.navigate('register')
-            }}
+            onPress={() => this.props.dispatch(userRegister(
+              {
+                username, password,
+              }))
+            }
           />
         </View>
       </TouchableWithoutFeedback>

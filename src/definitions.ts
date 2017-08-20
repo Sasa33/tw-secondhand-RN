@@ -82,5 +82,6 @@ export interface RootState {
     user?: UserState
     app?: AppState
     nav?: {}
-    products?: ProductsState
+    products?: ProductsState,
+    loader?: boolean,
 }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
-
+import { NavigationActions } from 'react-navigation'
 import { connect, DispatchProp } from 'react-redux'
 import { Button } from '../../components/'
 
@@ -58,14 +58,14 @@ const ProfileScreen = (props: ProfileProps<object>) => (
         title="已买宝贝"
         buttonStyle={buttonStyle}
         onPress={() => {
-          props.navigation.navigate('bought')
+          this.props.dispatch(NavigationActions.navigate({ routeName: 'bought' }))
         }}
     />
     <Button
         title="出售宝贝"
         buttonStyle={buttonStyle}
         onPress={() => {
-          props.navigation.navigate('owned')
+          this.props.dispatch(NavigationActions.navigate({ routeName: 'owned' }))
         }}
     />
     <Button

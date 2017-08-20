@@ -33,7 +33,7 @@ const HomeStack = StackNavigator(
       },
     },
     {
-      mode:       'modal'
+      mode: 'modal'
     }
 )
 
@@ -86,8 +86,7 @@ const MainTabNavigator = TabNavigator(
             style={{ color: tintColor }}
           />
         ),
-        header: null,
-        // tabBarVisible: false,
+        tabBarVisible: false,
       },
     },
     profileStack: {
@@ -115,7 +114,7 @@ const MainTabNavigator = TabNavigator(
       showLabel: false,
     },
     animationEnabled: false,
-    swipeEnabled: false,
+    swipeEnabled: true,
   }
 )
 
@@ -142,7 +141,7 @@ const LoginRegisterStackNavigator = StackNavigator(
 
 const RootNavigator = StackNavigator(
   {
-    MainTabNavigator:          { screen: MainTabNavigator            },
+    MainTabNavigator: { screen: MainTabNavigator            },
     LoginStackNavigator: { screen: LoginRegisterStackNavigator }
   },
   {

@@ -29,7 +29,7 @@ export const userLogin = (user: D.UserForLogin, meta: D.MetaForLogin): D.UserAct
 export const userLogout = (): D.UserAction => ({ type: USER_LOGOUT })
 
 const registerEpic: Epic<D.GeneralAction> = epicCreator(USER_REGISTER, register, (store) => {
-  store.dispatch(NavigationActions.navigate({ routeName: 'login' }))
+  store.dispatch(NavigationActions.back(null))
 })
 
 const loginEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGIN, login, (store, response, action) => {
@@ -50,15 +50,15 @@ const loginEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGIN, login, (store, 
   })
 })
 
-const logoutSucCallback = (store) => {
+const logoutCallback = (store) => {
   userStorage.removeUser().then(() => {
-    store.dispatch(NavigationActions.navigate({ routeName: 'homeStack' }))
     store.dispatch(clearProducts())
     store.dispatch(getProducts())
+    store.dispatch(NavigationActions.navigate({ routeName: 'homeStack' }))
   })
 }
 
-const logoutEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGOUT, logout, logoutSucCallback)
+const logoutEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGOUT, logout, logoutCallback, logoutCallback)
 
 export const epics: Array<Epic<D.GeneralAction>> = [
   registerEpic,
