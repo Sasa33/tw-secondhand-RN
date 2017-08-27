@@ -10,7 +10,6 @@ import { ModalWrapper } from '../layout/Modal'
 import { LoaderWrapper } from '../layout/Loader'
 import { uploadProductImage, createProduct } from '../../modules/product/actions'
 import { ImagePicker } from 'expo';
-import { Alert } from 'react-native'
 
 const  styles = StyleSheet.create({
   container: {
@@ -94,14 +93,6 @@ class ReleaseScreen extends React.Component<ReleaseScreenProps<object>, State> {
 
   changeTextState = name => e => {
     this.setState({ [name]: e.nativeEvent.text })
-  }
-
-  handleImageChange = (e) => {
-    e.preventDefault()
-    const { dispatch } = this.props
-    dispatch(uploadProductImage(
-        e.target.files[0]
-    ))
   }
 
   handleUploadImage = (e) => {
