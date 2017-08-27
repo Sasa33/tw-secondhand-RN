@@ -49,6 +49,12 @@ export interface ProductForCreate {
     description: string
 }
 
+export interface ImageFile {
+    uri: string,
+    type: string, 
+    name: string
+}
+
 // ACTION CREATORS
 
 // ACTIONS

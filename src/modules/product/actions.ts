@@ -28,7 +28,7 @@ export const getProducts = (): D.GeneralAction => ({ type: GET_PRODUCTS })
 export const getOwnedProducts = (): D.GeneralAction => ({ type: GET_OWNED })
 export const getBoughtProducts = (): D.GeneralAction => ({ type: GET_BOUGHT })
 export const buyProduct = (productId: string): D.GeneralAction => ({ type: BUY_PRODUCT, payload: productId})
-export const uploadProductImage =  (img: string): D.GeneralAction => ({ type: UPLOAD_PRODUCT_IMAGE, payload: img})
+export const uploadProductImage =  (img: D.ImageFile): D.GeneralAction => ({ type: UPLOAD_PRODUCT_IMAGE, payload: img})
 export const createProduct =
   (product: D.ProductForCreate): D.GeneralAction => ({type: CREATE_PRODUCT, payload: product})
 
@@ -40,7 +40,7 @@ const sucCallback = (store) => {
 }
 
 const queryAvailableEpic: Epic<D.GeneralAction> = epicCreator(GET_PRODUCTS, queryAvailable)
-
+''
 const queryOwnedEpic: Epic<D.GeneralAction> = epicCreator(GET_OWNED, queryOwned)
 
 const queryBoughtEpic: Epic<D.GeneralAction> = epicCreator(GET_BOUGHT, queryBought)

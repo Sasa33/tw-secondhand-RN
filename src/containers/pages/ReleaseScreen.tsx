@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text, View, Image, TextInput } from 'react-native'
+import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
 import { connect, DispatchProp } from 'react-redux'
 import { Button } from '../../components/'
 import * as D from '../../definitions'
@@ -9,6 +9,8 @@ import { LoginChecker } from '../layout/CheckLogin'
 import { ModalWrapper } from '../layout/Modal'
 import { LoaderWrapper } from '../layout/Loader'
 import { uploadProductImage, createProduct } from '../../modules/product/actions'
+import { ImagePicker } from 'expo';
+import { Alert } from 'react-native'
 
 const  styles = StyleSheet.create({
   container: {
@@ -50,6 +52,10 @@ const  styles = StyleSheet.create({
     width: 50,
     height: 50
   },
+  uplaodedImage: {
+    marginTop:10,
+    width: width(80)
+  },
   productDetail: {
     flex: 2,
     alignItems: 'center',
@@ -87,7 +93,7 @@ class ReleaseScreen extends React.Component<ReleaseScreenProps<object>, State> {
   }
 
   changeTextState = name => e => {
-    this.setState({ [name]: e.target.value })
+    this.setState({ [name]: e.nativeEvent.text })
   }
 
   handleImageChange = (e) => {
@@ -96,6 +102,24 @@ class ReleaseScreen extends React.Component<ReleaseScreenProps<object>, State> {
     dispatch(uploadProductImage(
         e.target.files[0]
     ))
+  }
+
+  handleUploadImage = (e) => {
+    e.preventDefault()
+    const { dispatch } = this.props
+    ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+    }).then(response => {
+      if (response.cancelled) {
+        console.log("give up choose image");
+      } else if (response.uri) {
+        dispatch(uploadProductImage({
+           uri: response.uri,
+           type: 'multipart/form-data',
+           name: response.uri
+        }))
+      }
+    });
   }
 
   handleSubmit = (imageUrl) => (e) => {
@@ -112,24 +136,18 @@ class ReleaseScreen extends React.Component<ReleaseScreenProps<object>, State> {
 
   render() {
     const { imageUrl } = this.props
-
     return (
       <View style={styles.container}>
+        <TouchableOpacity onPress={this.handleUploadImage} style={styles.uploadContainer}>
         {imageUrl.toString() !== ''
-            ? <Image style={styles.previewImage} source={imageUrl.toString()} />
+            ? <Image style={[styles.uploadContent, styles.uplaodedImage]}  source={{uri: imageUrl}} />
             : (<View style={styles.uploadContainer}>
               <View style={styles.uploadContent}>
                 <Text>点击上传图片</Text>
                 <Image style={styles.uploadImage} source={require('../../assets/arrow_up_upload.png')} />
               </View>
-              {/*<PhotoUpload*/}
-                  {/*onPhotoSelect={photo => {*/}
-                    {/*if (photo) {*/}
-                      {/*this.handleImageChange(photo)*/}
-                    {/*}*/}
-                  {/*}}*/}
-              {/*/>*/}
             </View>)}
+          </TouchableOpacity>
         <View style={styles.productDetail}>
           <TextInput style={styles.input} placeholder="商品名称" onChange={this.changeTextState('name')} />
           <TextInput style={styles.input} placeholder="售价￥" onChange={this.changeTextState('price')} />
@@ -142,7 +160,7 @@ class ReleaseScreen extends React.Component<ReleaseScreenProps<object>, State> {
           <Button
               title="开始出售"
               buttonStyle={buttonStyle}
-              onPress={() => {this.handleSubmit(imageUrl)}}
+              onPress={this.handleSubmit(imageUrl)}
           />
         </View>
       </View>
