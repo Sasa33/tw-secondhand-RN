@@ -58,14 +58,14 @@ const ProfileScreen = (props: ProfileProps<object>) => (
         title="已买宝贝"
         buttonStyle={buttonStyle}
         onPress={() => {
-          this.props.dispatch(NavigationActions.navigate({ routeName: 'bought' }))
+          props.dispatch(NavigationActions.navigate({ routeName: 'bought' }))
         }}
     />
     <Button
         title="出售宝贝"
         buttonStyle={buttonStyle}
         onPress={() => {
-          this.props.dispatch(NavigationActions.navigate({ routeName: 'owned' }))
+          props.dispatch(NavigationActions.navigate({ routeName: 'owned' }))
         }}
     />
     <Button
